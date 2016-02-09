@@ -22,7 +22,7 @@ class PhpDbMySqlTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function getDataSet()
     {
-        return $this->getYamlDataSet('seeds/users');
+        return $this->getYamlDataSet('seeds/test_users');
     }
 
     public function setUp()
@@ -58,22 +58,22 @@ class PhpDbMySqlTest extends PHPUnit_Extensions_Database_TestCase
 
     public function testSetup()
     {
-        $queryTable = $this->getConnection()->createQueryTable('users', 'SELECT * FROM users');
-        $expectedTable = $this->getDataSet()->getTable('users');
+        $queryTable = $this->getConnection()->createQueryTable('test_users', 'SELECT * FROM test_users');
+        $expectedTable = $this->getDataSet()->getTable('test_users');
         $this->assertTablesEqual($expectedTable, $queryTable);
     }
 
     public function testSelectOne()
     {
-        $actual = $this->db->selectOne('SELECT * FROM users');
-        $expected = $this->getDataSet()->getTable('users')->getRow(0);
+        $actual = $this->db->selectOne('SELECT * FROM test_users');
+        $expected = $this->getDataSet()->getTable('test_users')->getRow(0);
         $this->assertEquals($expected, $actual);
     }
 
     public function testSelect()
     {
-        $actual = $this->db->select('SELECT * FROM users');
-        $expected = $this->getDataSet()->getTable('users');
+        $actual = $this->db->select('SELECT * FROM test_users');
+        $expected = $this->getDataSet()->getTable('test_users');
         $this->assertEquals($expected->getRowCount(), count($actual));
         foreach ($actual as $i => $actualRow) {
             $expectedRow = $expected->getRow($i);
@@ -84,37 +84,37 @@ class PhpDbMySqlTest extends PHPUnit_Extensions_Database_TestCase
     public function testInsert()
     {
         $conn = $this->getConnection();
-        $originalRowCount = $conn->createQueryTable('users', 'SELECT * FROM users')->getRowCount();
-        $result = $this->db->insert('INSERT INTO users (name) VALUES (?)', ['foo']);
+        $originalRowCount = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getRowCount();
+        $result = $this->db->insert('INSERT INTO test_users (name) VALUES (?)', ['foo']);
         $this->assertTrue($result);
         $expectedRowCount = $originalRowCount + 1;
-        $actualRowCount = $conn->createQueryTable('users', 'SELECT * FROM users')->getRowCount();
+        $actualRowCount = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getRowCount();
         $this->assertEquals($expectedRowCount, $actualRowCount);
-        $actual = $conn->createQueryTable('users', 'SELECT * FROM users')->getValue($actualRowCount - 1, 'name');
+        $actual = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getValue($actualRowCount - 1, 'name');
         $this->assertEquals('foo', $actual);
     }
 
     public function testDelete()
     {
         $conn = $this->getConnection();
-        $originalRowCount = $conn->createQueryTable('users', 'SELECT * FROM users')->getRowCount();
-        $affected = $this->db->delete('DELETE FROM users LIMIT 1');
+        $originalRowCount = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getRowCount();
+        $affected = $this->db->delete('DELETE FROM test_users LIMIT 1');
         $this->assertEquals(1, $affected);
         $expectedRowCount = $originalRowCount - 1;
-        $actualRowCount = $conn->createQueryTable('users', 'SELECT * FROM users')->getRowCount();
+        $actualRowCount = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getRowCount();
         $this->assertEquals($expectedRowCount, $actualRowCount);
     }
 
     public function testUpdate()
     {
         $conn = $this->getConnection();
-        $originalRowCount = $conn->createQueryTable('users', 'SELECT * FROM users')->getRowCount();
-        $affected = $this->db->update('UPDATE users SET name = :name LIMIT 1', ['name' => 'foo']);
+        $originalRowCount = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getRowCount();
+        $affected = $this->db->update('UPDATE test_users SET name = :name LIMIT 1', ['name' => 'foo']);
         $this->assertEquals(1, $affected);
         $expectedRowCount = $originalRowCount;
-        $actualRowCount = $conn->createQueryTable('users', 'SELECT * FROM users')->getRowCount();
+        $actualRowCount = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getRowCount();
         $this->assertEquals($expectedRowCount, $actualRowCount);
-        $actual = $conn->createQueryTable('users', 'SELECT * FROM users')->getValue(0, 'name');
+        $actual = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getValue(0, 'name');
         $this->assertEquals('foo', $actual);
     }
 

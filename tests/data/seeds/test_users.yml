@@ -1,4 +1,4 @@
-users:
+test_users:
     -   id: 1
         name: 'User 1'
         age: 31
