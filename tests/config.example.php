@@ -7,13 +7,13 @@ return [
     | PDO Fetch Style
     |--------------------------------------------------------------------------
     |
-    | By default, database results will be returned as instances of the PHP
-    | stdClass object; however, you may desire to retrieve records in an
-    | array format for simplicity. Here you can tweak the fetch style.
+    | By default, database results will be returned as an associative PHP array
+    | however, you may desire to retrieve records in some
+    | other format. Here you can tweak the fetch style.
     |
     */
 
-    'fetch' => PDO::FETCH_CLASS,
+    'fetch' => PDO::FETCH_ASSOC,
 
     /*
     |--------------------------------------------------------------------------
