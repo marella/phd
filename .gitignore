@@ -1,4 +1,5 @@
 /vendor
+/tests/config.php
 composer.phar
 composer.lock
 .php_cs.cache
