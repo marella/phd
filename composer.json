@@ -1,15 +1,31 @@
 {
-    "require": {
+    "name": "marella/phpdb",
+    "description": "PHP Database framework code copied from Laravel.",
+    "type": "library",
+    "keywords": ["database", "library", "phpdb"],
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/marella/phpdb/issues",
+        "source": "https://github.com/marella/phpdb"
     },
-    "autoload": {
-        "psr-4": {
-            "PhpDb\\": "src/PhpDb/"
+    "authors": [
+        {
+            "name": "Ravindra Marella",
+            "email": "mv.ravindra007@gmail.com"
         }
+    ],
+    "require": {
+        "php": ">=5.5.9"
     },
     "require-dev": {
         "mockery/mockery": "~0.9.2",
         "phpunit/phpunit": "4.8.*",
         "phpunit/dbunit": ">=1.2",
         "phpunit/php-code-coverage": "^2"
+    },
+    "autoload": {
+        "psr-4": {
+            "PhpDb\\": "src/PhpDb/"
+        }
     }
 }
