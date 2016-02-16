@@ -12,7 +12,7 @@ class DatabaseFactory
     protected $factory;
 
     /**
-     * @param \PhD\Connectors\ConnectionFactory $factory
+     * @param \PhD\ConnectionFactory $factory
      */
     public function __construct(ConnectionFactory $factory)
     {

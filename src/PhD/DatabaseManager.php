@@ -41,8 +41,8 @@ class DatabaseManager implements ConnectionResolverInterface
     /**
      * Create a new database manager instance.
      *
-     * @param array                             $config
-     * @param \PhD\Connectors\ConnectionFactory $factory
+     * @param array                  $config
+     * @param \PhD\ConnectionFactory $factory
      */
     public function __construct(array $config, ConnectionFactory $factory)
     {
