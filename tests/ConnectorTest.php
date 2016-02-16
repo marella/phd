@@ -1,8 +1,9 @@
 <?php
 
+use PhD\Connectors\Connector;
 use Mockery as m;
 
-class PhpDbConnectorTest extends PHPUnit_Framework_TestCase
+class ConnectorTest extends PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
@@ -11,7 +12,7 @@ class PhpDbConnectorTest extends PHPUnit_Framework_TestCase
 
     public function testOptionResolution()
     {
-        $connector = new PhpDb\Connectors\Connector();
+        $connector = new Connector();
         $connector->setDefaultOptions([0 => 'foo', 1 => 'bar']);
         $this->assertEquals([0 => 'baz', 1 => 'bar', 2 => 'boom'], $connector->getOptions(['options' => [0 => 'baz', 2 => 'boom']]));
     }
@@ -21,7 +22,7 @@ class PhpDbConnectorTest extends PHPUnit_Framework_TestCase
      */
     public function testMySqlConnectCallsCreateConnectionWithProperArguments($dsn, $config)
     {
-        $connector = $this->getMock('PhpDb\Connectors\MySqlConnector', ['createConnection', 'getOptions']);
+        $connector = $this->getMock('PhD\Connectors\MySqlConnector', ['createConnection', 'getOptions']);
         $connection = m::mock('PDO');
         $connector->expects($this->once())->method('getOptions')->with($this->equalTo($config))->will($this->returnValue(['options']));
         $connector->expects($this->once())->method('createConnection')->with($this->equalTo($dsn), $this->equalTo($config), $this->equalTo(['options']))->will($this->returnValue($connection));

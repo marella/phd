@@ -1,19 +1,19 @@
 <?php
 
-namespace PhpDb;
+namespace PhD;
 
 use PDO;
-use PhpDb\Support\Arr;
-use PhpDb\Support\Str;
+use PhD\Support\Arr;
+use PhD\Support\Str;
 use InvalidArgumentException;
-use PhpDb\Connections\Connection;
+use PhD\Connections\Connection;
 
 class DatabaseManager implements ConnectionResolverInterface
 {
     /**
      * The database connection factory instance.
      *
-     * @var \PhpDb\ConnectionFactory
+     * @var \PhD\ConnectionFactory
      */
     protected $factory;
 
@@ -41,8 +41,8 @@ class DatabaseManager implements ConnectionResolverInterface
     /**
      * Create a new database manager instance.
      *
-     * @param array                               $config
-     * @param \PhpDb\Connectors\ConnectionFactory $factory
+     * @param array                             $config
+     * @param \PhD\Connectors\ConnectionFactory $factory
      */
     public function __construct(array $config = [], ConnectionFactory $factory)
     {
@@ -55,7 +55,7 @@ class DatabaseManager implements ConnectionResolverInterface
      *
      * @param string $name
      *
-     * @return \PhpDb\Connections\Connection
+     * @return \PhD\Connections\Connection
      */
     public function connection($name = null)
     {
@@ -119,7 +119,7 @@ class DatabaseManager implements ConnectionResolverInterface
      *
      * @param string $name
      *
-     * @return \PhpDb\Connections\Connection
+     * @return \PhD\Connections\Connection
      */
     public function reconnect($name = null)
     {
@@ -137,7 +137,7 @@ class DatabaseManager implements ConnectionResolverInterface
      *
      * @param string $name
      *
-     * @return \PhpDb\Connections\Connection
+     * @return \PhD\Connections\Connection
      */
     protected function refreshPdoConnections($name)
     {
@@ -153,7 +153,7 @@ class DatabaseManager implements ConnectionResolverInterface
      *
      * @param string $name
      *
-     * @return \PhpDb\Connections\Connection
+     * @return \PhD\Connections\Connection
      */
     protected function makeConnection($name)
     {
@@ -181,9 +181,9 @@ class DatabaseManager implements ConnectionResolverInterface
     /**
      * Prepare the database connection instance.
      *
-     * @param \PhpDb\Connections\Connection $connection
+     * @param \PhD\Connections\Connection $connection
      *
-     * @return \PhpDb\Connections\Connection
+     * @return \PhD\Connections\Connection
      */
     protected function prepare(Connection $connection)
     {
@@ -202,10 +202,10 @@ class DatabaseManager implements ConnectionResolverInterface
     /**
      * Prepare the read write mode for database connection instance.
      *
-     * @param \PhpDb\Connections\Connection $connection
-     * @param string                        $type
+     * @param \PhD\Connections\Connection $connection
+     * @param string                      $type
      *
-     * @return \PhpDb\Connections\Connection
+     * @return \PhD\Connections\Connection
      */
     protected function setPdoForType(Connection $connection, $type = null)
     {

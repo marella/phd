@@ -2,7 +2,7 @@
 
 use Mockery as m;
 
-class PhpDbConnectionTest extends PHPUnit_Framework_TestCase
+class ConnectionTest extends PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
@@ -162,7 +162,7 @@ class PhpDbConnectionTest extends PHPUnit_Framework_TestCase
     {
         $pdo = $pdo ?: new DatabaseConnectionTestMockPDO();
         $defaults = ['getDefaultQueryGrammar', 'getDefaultPostProcessor', 'getDefaultSchemaGrammar'];
-        $connection = $this->getMock('PhpDb\Connections\Connection', array_merge($defaults, $methods), [$pdo]);
+        $connection = $this->getMock('PhD\Connections\Connection', array_merge($defaults, $methods), [$pdo]);
         $connection->enableQueryLog();
 
         return $connection;

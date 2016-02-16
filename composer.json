@@ -1,12 +1,12 @@
 {
-    "name": "marella/phpdb",
-    "description": "PHP Database framework code copied from Laravel.",
+    "name": "marella/phd",
+    "description": "PHP Database library.",
     "type": "library",
-    "keywords": ["database", "library", "phpdb"],
+    "keywords": ["database", "library", "phd"],
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/marella/phpdb/issues",
-        "source": "https://github.com/marella/phpdb"
+        "issues": "https://github.com/marella/phd/issues",
+        "source": "https://github.com/marella/phd"
     },
     "authors": [
         {
@@ -25,7 +25,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PhpDb\\": "src/PhpDb/"
+            "PhD\\": "src/PhD/"
         }
     }
 }

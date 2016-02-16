@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpDb\Support;
+namespace PhD\Support;
 
 class Str
 {

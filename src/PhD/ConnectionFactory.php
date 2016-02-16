@@ -1,12 +1,12 @@
 <?php
 
-namespace PhpDb;
+namespace PhD;
 
 use PDO;
-use PhpDb\Support\Arr;
+use PhD\Support\Arr;
 use InvalidArgumentException;
-use PhpDb\Connectors\MySqlConnector;
-use PhpDb\Connections\MySqlConnection;
+use PhD\Connectors\MySqlConnector;
+use PhD\Connections\MySqlConnection;
 
 class ConnectionFactory
 {
@@ -16,7 +16,7 @@ class ConnectionFactory
      * @param array  $config
      * @param string $name
      *
-     * @return \PhpDb\Connections\Connection
+     * @return \PhD\Connections\Connection
      */
     public function make(array $config, $name = null)
     {
@@ -34,7 +34,7 @@ class ConnectionFactory
      *
      * @param array $config
      *
-     * @return \PhpDb\Connections\Connection
+     * @return \PhD\Connections\Connection
      */
     protected function createSingleConnection(array $config)
     {
@@ -50,7 +50,7 @@ class ConnectionFactory
      *
      * @param array $config
      *
-     * @return \PhpDb\Connections\Connection
+     * @return \PhD\Connections\Connection
      */
     protected function createReadWriteConnection(array $config)
     {
@@ -157,7 +157,7 @@ class ConnectionFactory
      *
      * @throws \InvalidArgumentException
      *
-     * @return \PhpDb\Connectors\ConnectorInterface
+     * @return \PhD\Connectors\ConnectorInterface
      */
     public function createConnector(array $config)
     {
@@ -184,7 +184,7 @@ class ConnectionFactory
      *
      * @throws \InvalidArgumentException
      *
-     * @return \PhpDb\Connections\Connection
+     * @return \PhD\Connections\Connection
      */
     protected function createConnection($driver, $connection, $database, $prefix = '', array $config = [])
     {

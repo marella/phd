@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpDb;
+namespace PhD;
 
 interface ConnectionResolverInterface
 {
@@ -9,7 +9,7 @@ interface ConnectionResolverInterface
      *
      * @param string $name
      *
-     * @return \PhpDb\Connections\ConnectionInterface
+     * @return \PhD\Connections\ConnectionInterface
      */
     public function connection($name = null);
 

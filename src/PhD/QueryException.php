@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpDb;
+namespace PhD;
 
 use PDOException;
 

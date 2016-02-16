@@ -1,11 +1,11 @@
 <?php
 
-namespace PhpDb\Connectors;
+namespace PhD\Connectors;
 
 use PDO;
 use Exception;
-use PhpDb\Support\Arr;
-use PhpDb\DetectsLostConnections;
+use PhD\Support\Arr;
+use PhD\DetectsLostConnections;
 
 class Connector
 {
@@ -94,8 +94,8 @@ class Connector
      * @param array      $options
      *
      * @throws \Exception
-     * @return \PDO
      *
+     * @return \PDO
      */
     protected function tryAgainIfCausedByLostConnection(Exception $e, $dsn, $username, $password, $options)
     {

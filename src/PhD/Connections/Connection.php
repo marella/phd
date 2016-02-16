@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpDb\Connections;
+namespace PhD\Connections;
 
 use PDO;
 use Closure;
@@ -9,9 +9,9 @@ use Throwable;
 use LogicException;
 use RuntimeException;
 use DateTimeInterface;
-use PhpDb\DetectsLostConnections;
-use PhpDb\QueryException;
-use PhpDb\Support\Arr;
+use PhD\DetectsLostConnections;
+use PhD\QueryException;
+use PhD\Support\Arr;
 
 class Connection implements ConnectionInterface
 {
@@ -443,7 +443,7 @@ class Connection implements ConnectionInterface
      * @param array    $bindings
      * @param \Closure $callback
      *
-     * @throws \PhpDb\QueryException
+     * @throws \PhD\QueryException
      *
      * @return mixed
      */
@@ -481,7 +481,7 @@ class Connection implements ConnectionInterface
      * @param array    $bindings
      * @param \Closure $callback
      *
-     * @throws \PhpDb\QueryException
+     * @throws \PhD\QueryException
      *
      * @return mixed
      */
@@ -509,12 +509,12 @@ class Connection implements ConnectionInterface
     /**
      * Handle a query exception that occurred during query execution.
      *
-     * @param \PhpDb\QueryException $e
-     * @param string                $query
-     * @param array                 $bindings
-     * @param \Closure              $callback
+     * @param \PhD\QueryException $e
+     * @param string              $query
+     * @param array               $bindings
+     * @param \Closure            $callback
      *
-     * @throws \PhpDb\QueryException
+     * @throws \PhD\QueryException
      *
      * @return mixed
      */

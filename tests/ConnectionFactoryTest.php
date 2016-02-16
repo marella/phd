@@ -1,8 +1,9 @@
 <?php
 
+use PhD\ConnectionFactory;
 use Mockery as m;
 
-class PhpDbConnectionFactoryTest extends PHPUnit_Framework_TestCase
+class ConnectionFactoryTest extends PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
@@ -14,7 +15,7 @@ class PhpDbConnectionFactoryTest extends PHPUnit_Framework_TestCase
      */
     public function testIfDriverIsntSetExceptionIsThrown()
     {
-        $factory = new PhpDb\ConnectionFactory();
+        $factory = new ConnectionFactory();
         $factory->createConnector(['foo']);
     }
 
@@ -23,7 +24,7 @@ class PhpDbConnectionFactoryTest extends PHPUnit_Framework_TestCase
      */
     public function testExceptionIsThrownOnUnsupportedDriver()
     {
-        $factory = new PhpDb\ConnectionFactory();
+        $factory = new ConnectionFactory();
         $factory->createConnector(['driver' => 'foo']);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpDb\Connections;
+namespace PhD\Connections;
 
 use Closure;
 

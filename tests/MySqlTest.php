@@ -1,6 +1,9 @@
 <?php
 
-class PhpDbMySqlTest extends PHPUnit_Extensions_Database_TestCase
+use PhD\ConnectionFactory;
+use PhD\DatabaseManager;
+
+class MySqlTest extends PHPUnit_Extensions_Database_TestCase
 {
     protected $db;
 
@@ -126,8 +129,8 @@ class PhpDbMySqlTest extends PHPUnit_Extensions_Database_TestCase
     protected function getDb()
     {
         $config = $this->getConfig();
-        $factory = new \PhpDb\ConnectionFactory();
-        $db = new \PhpDb\DatabaseManager($config, $factory);
+        $factory = new ConnectionFactory();
+        $db = new DatabaseManager($config, $factory);
 
         return $db;
     }

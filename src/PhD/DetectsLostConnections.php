@@ -1,9 +1,9 @@
 <?php
 
-namespace PhpDb;
+namespace PhD;
 
 use Exception;
-use PhpDb\Support\Str;
+use PhD\Support\Str;
 
 trait DetectsLostConnections
 {

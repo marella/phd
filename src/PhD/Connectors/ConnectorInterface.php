@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpDb\Connectors;
+namespace PhD\Connectors;
 
 interface ConnectorInterface
 {
