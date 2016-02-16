@@ -44,7 +44,7 @@ class DatabaseManager implements ConnectionResolverInterface
      * @param array                             $config
      * @param \PhD\Connectors\ConnectionFactory $factory
      */
-    public function __construct(array $config = [], ConnectionFactory $factory)
+    public function __construct(array $config, ConnectionFactory $factory)
     {
         $this->config = $config;
         $this->factory = $factory;

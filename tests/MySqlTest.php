@@ -1,7 +1,7 @@
 <?php
 
 use PhD\ConnectionFactory;
-use PhD\DatabaseManager;
+use PhD\DatabaseFactory;
 
 class MySqlTest extends PHPUnit_Extensions_Database_TestCase
 {
@@ -129,8 +129,8 @@ class MySqlTest extends PHPUnit_Extensions_Database_TestCase
     protected function getDb()
     {
         $config = $this->getConfig();
-        $factory = new ConnectionFactory();
-        $db = new DatabaseManager($config, $factory);
+        $factory = new DatabaseFactory(new ConnectionFactory());
+        $db = $factory->create($config);
 
         return $db;
     }
