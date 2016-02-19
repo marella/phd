@@ -356,9 +356,9 @@ class Connection implements ConnectionInterface
 
         if ($this->transactions == 1) {
             $this->getPdo()->beginTransaction();
-        } elseif ($this->transactions > 1 && $this->queryGrammar->supportsSavepoints()) {
+        } elseif ($this->transactions > 1 && $this->supportsSavepoints()) {
             $this->getPdo()->exec(
-                $this->queryGrammar->compileSavepoint('trans'.$this->transactions)
+                $this->compileSavepoint('trans'.$this->transactions)
             );
         }
 
@@ -386,9 +386,9 @@ class Connection implements ConnectionInterface
     {
         if ($this->transactions == 1) {
             $this->getPdo()->rollBack();
-        } elseif ($this->transactions > 1 && $this->queryGrammar->supportsSavepoints()) {
+        } elseif ($this->transactions > 1 && $this->supportsSavepoints()) {
             $this->getPdo()->exec(
-                $this->queryGrammar->compileSavepointRollBack('trans'.$this->transactions)
+                $this->compileSavepointRollBack('trans'.$this->transactions)
             );
         }
 
@@ -918,5 +918,39 @@ class Connection implements ConnectionInterface
     public function getDateFormat()
     {
         return 'Y-m-d H:i:s';
+    }
+
+    /**
+     * Determine if the database system supports savepoints.
+     *
+     * @return bool
+     */
+    public function supportsSavepoints()
+    {
+        return true;
+    }
+
+    /**
+     * Compile the SQL statement to define a savepoint.
+     *
+     * @param string $name
+     *
+     * @return string
+     */
+    public function compileSavepoint($name)
+    {
+        return 'SAVEPOINT '.$name;
+    }
+
+    /**
+     * Compile the SQL statement to execute a savepoint rollback.
+     *
+     * @param string $name
+     *
+     * @return string
+     */
+    public function compileSavepointRollBack($name)
+    {
+        return 'ROLLBACK TO SAVEPOINT '.$name;
     }
 }
