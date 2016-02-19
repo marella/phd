@@ -121,9 +121,18 @@ class MySqlTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertEquals('foo', $actual);
     }
 
+    protected function getConfigFilename()
+    {
+        return __DIR__.'/config.php';
+    }
+
     protected function getConfig()
     {
-        return require __DIR__.'/config.php';
+        if (!is_file($this->getConfigFilename())) {
+            $this->markTestSkipped('File Not Found: tests/config.php');
+        }
+
+        return require $this->getConfigFilename();
     }
 
     protected function getDb()
