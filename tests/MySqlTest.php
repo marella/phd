@@ -121,6 +121,98 @@ class MySqlTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertEquals('foo', $actual);
     }
 
+    public function testTransactionMethodRunsSuccessfully()
+    {
+        $db = $this->db;
+        $conn = $this->getConnection();
+        $originalRowCount = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getRowCount();
+
+        $db->transaction(function ($db) use ($conn, $originalRowCount) {
+            $this->assertEquals(1, $db->transactionLevel());
+
+            $actualRowCount = count($db->select('SELECT * FROM test_users'));
+            $this->assertEquals($originalRowCount, $actualRowCount);
+
+            $db->transaction(function ($db) use ($conn, $originalRowCount) {
+                $this->assertEquals(2, $db->transactionLevel());
+
+                $affected = $db->delete('DELETE FROM test_users LIMIT 1');
+                $this->assertEquals(1, $affected);
+                $expectedRowCount = $originalRowCount - 1;
+                $actualRowCount = count($db->select('SELECT * FROM test_users'));
+                $this->assertEquals($expectedRowCount, $actualRowCount);
+
+                $realRowCount = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getRowCount();
+                $this->assertEquals($originalRowCount, $realRowCount);
+            });
+
+            $this->assertEquals(1, $db->transactionLevel());
+
+            $expectedRowCount = $originalRowCount - 1;
+            $actualRowCount = count($db->select('SELECT * FROM test_users'));
+            $this->assertEquals($expectedRowCount, $actualRowCount);
+
+            $realRowCount = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getRowCount();
+            $this->assertEquals($originalRowCount, $realRowCount);
+        });
+
+        $realRowCount = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getRowCount();
+        $expectedRowCount = $originalRowCount - 1;
+        $this->assertEquals($expectedRowCount, $realRowCount);
+    }
+
+    public function testTransactionMethodRollsbackAndThrows()
+    {
+        $db = $this->db;
+        $conn = $this->getConnection();
+        $originalRowCount = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getRowCount();
+
+        try {
+            $db->transaction(function ($db) use ($conn, $originalRowCount) {
+                $this->assertEquals(1, $db->transactionLevel());
+
+                $actualRowCount = count($db->select('SELECT * FROM test_users'));
+                $this->assertEquals($originalRowCount, $actualRowCount);
+
+                try {
+                    $db->transaction(function ($db) use ($conn, $originalRowCount) {
+                        $this->assertEquals(2, $db->transactionLevel());
+
+                        $affected = $db->delete('DELETE FROM test_users LIMIT 1');
+                        $this->assertEquals(1, $affected);
+                        $expectedRowCount = $originalRowCount - 1;
+                        $actualRowCount = count($db->select('SELECT * FROM test_users'));
+                        $this->assertEquals($expectedRowCount, $actualRowCount);
+
+                        $realRowCount = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getRowCount();
+                        $this->assertEquals($originalRowCount, $realRowCount);
+
+                        throw new Exception('foo');
+                    });
+                } catch (Exception $e) {
+                    $this->assertEquals('foo', $e->getMessage());
+                }
+
+                $this->assertEquals(1, $db->transactionLevel());
+
+                $expectedRowCount = $originalRowCount;
+                $actualRowCount = count($db->select('SELECT * FROM test_users'));
+                $this->assertEquals($expectedRowCount, $actualRowCount);
+
+                $realRowCount = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getRowCount();
+                $this->assertEquals($originalRowCount, $realRowCount);
+
+                throw $e;
+            });
+        } catch (Exception $e) {
+            $this->assertEquals('foo', $e->getMessage());
+        }
+
+        $realRowCount = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getRowCount();
+        $expectedRowCount = $originalRowCount;
+        $this->assertEquals($expectedRowCount, $realRowCount);
+    }
+
     protected function getConfigFilename()
     {
         return __DIR__.'/config.php';
