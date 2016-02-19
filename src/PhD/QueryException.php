@@ -3,6 +3,7 @@
 namespace PhD;
 
 use PDOException;
+use PhD\Support\Str;
 
 class QueryException extends PDOException
 {
@@ -53,7 +54,7 @@ class QueryException extends PDOException
      */
     protected function formatMessage($sql, $bindings, $previous)
     {
-        return $previous->getMessage().' (SQL: '.str_replace_array('\?', $bindings, $sql).')';
+        return $previous->getMessage().' (SQL: '.Str::replaceArray('\?', $bindings, $sql).')';
     }
 
     /**
