@@ -32,8 +32,20 @@ class DBTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException PHPUnit_Framework_Error
+     *
+     * @requires PHP 5.4
      */
     public function testSetThrowsError()
+    {
+        DB::setFacadeRoot(null);
+    }
+
+    /**
+     * @expectedException TypeError
+     *
+     * @requires PHP 7.0
+     */
+    public function testSetThrowsTypeError()
     {
         DB::setFacadeRoot(null);
     }
