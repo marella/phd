@@ -45,9 +45,9 @@ class DBTest extends PHPUnit_Framework_TestCase
     {
         $this->assertNull(DB::getFacadeRoot());
 
-        $DB = m::mock('PhD\DB'.'[getFacadeRoot, setFacadeRoot]');
+        $DB = m::mock(DB::class.'[getFacadeRoot, setFacadeRoot]');
         $DB->shouldReceive('getFacadeRoot')->once()->andReturn(false);
-        $DB->shouldReceive('setFacadeRoot')->once()->with(m::type('PhD\DatabaseManager'));
+        $DB->shouldReceive('setFacadeRoot')->once()->with(m::type(DatabaseManager::class));
         $DB::init([]);
     }
 
@@ -55,7 +55,7 @@ class DBTest extends PHPUnit_Framework_TestCase
     {
         $this->assertNull(DB::getFacadeRoot());
 
-        $DB = m::mock('PhD\DB'.'[getFacadeRoot, setFacadeRoot]');
+        $DB = m::mock(DB::class.'[getFacadeRoot, setFacadeRoot]');
         $DB->shouldReceive('getFacadeRoot')->once()->andReturn(true);
         $DB->shouldNotReceive('setFacadeRoot');
         $DB::init([]);
