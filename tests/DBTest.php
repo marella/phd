@@ -30,23 +30,14 @@ class DBTest extends PHPUnit_Framework_TestCase
         $this->assertNull(DB::getFacadeRoot());
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error
-     *
-     * @requires PHP 5.4
-     */
     public function testSetThrowsError()
     {
-        DB::setFacadeRoot(null);
-    }
+        if (class_exists('TypeError')) {
+            $this->setExpectedException('TypeError');
+        } else {
+            $this->setExpectedException('PHPUnit_Framework_Error');
+        }
 
-    /**
-     * @expectedException TypeError
-     *
-     * @requires PHP 7.0
-     */
-    public function testSetThrowsTypeError()
-    {
         DB::setFacadeRoot(null);
     }
 
@@ -54,9 +45,9 @@ class DBTest extends PHPUnit_Framework_TestCase
     {
         $this->assertNull(DB::getFacadeRoot());
 
-        $DB = m::mock(DB::class.'[getFacadeRoot, setFacadeRoot]');
+        $DB = m::mock('PhD\DB'.'[getFacadeRoot, setFacadeRoot]');
         $DB->shouldReceive('getFacadeRoot')->once()->andReturn(false);
-        $DB->shouldReceive('setFacadeRoot')->once()->with(m::type(DatabaseManager::class));
+        $DB->shouldReceive('setFacadeRoot')->once()->with(m::type('PhD\DatabaseManager'));
         $DB::init([]);
     }
 
@@ -64,7 +55,7 @@ class DBTest extends PHPUnit_Framework_TestCase
     {
         $this->assertNull(DB::getFacadeRoot());
 
-        $DB = m::mock(DB::class.'[getFacadeRoot, setFacadeRoot]');
+        $DB = m::mock('PhD\DB'.'[getFacadeRoot, setFacadeRoot]');
         $DB->shouldReceive('getFacadeRoot')->once()->andReturn(true);
         $DB->shouldNotReceive('setFacadeRoot');
         $DB::init([]);
