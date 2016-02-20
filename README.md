@@ -35,7 +35,7 @@ composer require marella/phd
 ```
 
 ### Requirements
-- PHP >= 5.5.9
+- PHP >= 5.4
 - PDO PHP Extension
 
 ## Usage
