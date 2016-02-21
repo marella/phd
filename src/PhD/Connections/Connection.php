@@ -886,28 +886,6 @@ class Connection implements ConnectionInterface
         $this->database = $database;
     }
 
-    /**
-     * Get the table prefix for the connection.
-     *
-     * @return string
-     */
-    public function getTablePrefix()
-    {
-        return $this->tablePrefix;
-    }
-
-    /**
-     * Set the table prefix in use by the connection.
-     *
-     * @param string $prefix
-     */
-    public function setTablePrefix($prefix)
-    {
-        $this->tablePrefix = $prefix;
-
-        $this->getQueryGrammar()->setTablePrefix($prefix);
-    }
-
     /* New */
 
     /**
