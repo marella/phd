@@ -2,6 +2,7 @@
 
 use PhD\ConnectionFactory;
 use PhD\DatabaseFactory;
+use PhD\QueryException;
 
 class MySqlTest extends PHPUnit_Extensions_Database_TestCase
 {
@@ -261,6 +262,12 @@ class MySqlTest extends PHPUnit_Extensions_Database_TestCase
         $actual = $this->db->selectOne('SELECT * FROM test_users');
         $expected = $this->getDataSet()->getTable('test_users')->getRow(0);
         $this->assertEquals($expected, $actual);
+    }
+
+    public function testQueryException()
+    {
+        $this->setExpectedException(QueryException::class);
+        $this->db->select('SELECT * FROM non_existent_table');
     }
 
     protected function getConfigFilename()
