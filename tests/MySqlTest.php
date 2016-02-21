@@ -51,6 +51,7 @@ class MySqlTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertInstanceOf('PDO', $this->db->connection()->getReadPdo());
         $this->assertInstanceOf('PDO', $this->db->connection($defaultConnection)->getPdo());
         $this->assertInstanceOf('PDO', $this->db->connection($defaultConnection)->getReadPdo());
+
         $this->db->disconnect();
         $this->assertNull($this->db->getPdo());
         $this->assertNull($this->db->getReadPdo());
@@ -58,6 +59,22 @@ class MySqlTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertNull($this->db->connection()->getReadPdo());
         $this->assertNull($this->db->connection($defaultConnection)->getPdo());
         $this->assertNull($this->db->connection($defaultConnection)->getReadPdo());
+
+        $this->db->reconnect();
+        $this->assertInstanceOf('PDO', $this->db->getPdo());
+        $this->assertInstanceOf('PDO', $this->db->getReadPdo());
+        $this->assertInstanceOf('PDO', $this->db->connection()->getPdo());
+        $this->assertInstanceOf('PDO', $this->db->connection()->getReadPdo());
+        $this->assertInstanceOf('PDO', $this->db->connection($defaultConnection)->getPdo());
+        $this->assertInstanceOf('PDO', $this->db->connection($defaultConnection)->getReadPdo());
+
+        $this->db->reconnect();
+        $this->assertInstanceOf('PDO', $this->db->getPdo());
+        $this->assertInstanceOf('PDO', $this->db->getReadPdo());
+        $this->assertInstanceOf('PDO', $this->db->connection()->getPdo());
+        $this->assertInstanceOf('PDO', $this->db->connection()->getReadPdo());
+        $this->assertInstanceOf('PDO', $this->db->connection($defaultConnection)->getPdo());
+        $this->assertInstanceOf('PDO', $this->db->connection($defaultConnection)->getReadPdo());
     }
 
     public function testSetup()
@@ -85,6 +102,17 @@ class MySqlTest extends PHPUnit_Extensions_Database_TestCase
         }
     }
 
+    public function testSelectFromWriteConnection()
+    {
+        $actual = $this->db->selectFromWriteConnection('SELECT * FROM test_users');
+        $expected = $this->getDataSet()->getTable('test_users');
+        $this->assertEquals($expected->getRowCount(), count($actual));
+        foreach ($actual as $i => $actualRow) {
+            $expectedRow = $expected->getRow($i);
+            $this->assertEquals($expectedRow, $actualRow);
+        }
+    }
+
     public function testInsert()
     {
         $conn = $this->getConnection();
@@ -104,6 +132,17 @@ class MySqlTest extends PHPUnit_Extensions_Database_TestCase
         $originalRowCount = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getRowCount();
         $affected = $this->db->delete('DELETE FROM test_users LIMIT 1');
         $this->assertEquals(1, $affected);
+        $expectedRowCount = $originalRowCount - 1;
+        $actualRowCount = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getRowCount();
+        $this->assertEquals($expectedRowCount, $actualRowCount);
+    }
+
+    public function testUnprepared()
+    {
+        $conn = $this->getConnection();
+        $originalRowCount = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getRowCount();
+        $result = $this->db->unprepared('DELETE FROM test_users LIMIT 1');
+        $this->assertTrue($result);
         $expectedRowCount = $originalRowCount - 1;
         $actualRowCount = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getRowCount();
         $this->assertEquals($expectedRowCount, $actualRowCount);
@@ -212,6 +251,16 @@ class MySqlTest extends PHPUnit_Extensions_Database_TestCase
         $realRowCount = $conn->createQueryTable('test_users', 'SELECT * FROM test_users')->getRowCount();
         $expectedRowCount = $originalRowCount;
         $this->assertEquals($expectedRowCount, $realRowCount);
+    }
+
+    public function testReconnectIfMissingConnection()
+    {
+        $this->db->connection()->disconnect();
+        $this->assertNull($this->db->getPdo());
+        $this->assertNull($this->db->getReadPdo());
+        $actual = $this->db->selectOne('SELECT * FROM test_users');
+        $expected = $this->getDataSet()->getTable('test_users')->getRow(0);
+        $this->assertEquals($expected, $actual);
     }
 
     protected function getConfigFilename()
