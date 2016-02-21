@@ -361,8 +361,6 @@ class Connection implements ConnectionInterface
                 $this->compileSavepoint('trans'.$this->transactions)
             );
         }
-
-        $this->fireConnectionEvent('beganTransaction');
     }
 
     /**
@@ -375,8 +373,6 @@ class Connection implements ConnectionInterface
         }
 
         --$this->transactions;
-
-        $this->fireConnectionEvent('committed');
     }
 
     /**
@@ -393,8 +389,6 @@ class Connection implements ConnectionInterface
         }
 
         $this->transactions = max(0, $this->transactions - 1);
-
-        $this->fireConnectionEvent('rollingBack');
     }
 
     /**
@@ -571,47 +565,8 @@ class Connection implements ConnectionInterface
      */
     public function logQuery($query, $bindings, $time = null)
     {
-        if (isset($this->events)) {
-            $this->events->fire(new Events\QueryExecuted(
-                $query, $bindings, $time, $this
-            ));
-        }
-
         if ($this->loggingQueries) {
             $this->queryLog[] = compact('query', 'bindings', 'time');
-        }
-    }
-
-    /**
-     * Register a database query listener with the connection.
-     *
-     * @param \Closure $callback
-     */
-    public function listen(Closure $callback)
-    {
-        if (isset($this->events)) {
-            $this->events->listen(Events\QueryExecuted::class, $callback);
-        }
-    }
-
-    /**
-     * Fire an event for this connection.
-     *
-     * @param string $event
-     */
-    protected function fireConnectionEvent($event)
-    {
-        if (!isset($this->events)) {
-            return;
-        }
-
-        switch ($event) {
-            case 'beganTransaction':
-                return $this->events->fire(new Events\TransactionBeginning($this));
-            case 'committed':
-                return $this->events->fire(new Events\TransactionCommitted($this));
-            case 'rollingBack':
-                return $this->events->fire(new Events\TransactionRolledBack($this));
         }
     }
 
