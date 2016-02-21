@@ -47,8 +47,13 @@ return [
     'connections' => [
 
         'mysql' => [
+            'read' => [
+                'host' => '127.0.0.1',
+            ],
+            'write' => [
+                'host' => '127.0.0.1',
+            ],
             'driver' => 'mysql',
-            'host' => '127.0.0.1',
             'database' => 'test_db',
             'username' => 'travis',
             'password' => '',
