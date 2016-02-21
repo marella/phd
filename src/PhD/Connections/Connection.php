@@ -628,59 +628,6 @@ class Connection implements ConnectionInterface
     }
 
     /**
-     * Is Doctrine available?
-     *
-     * @return bool
-     */
-    public function isDoctrineAvailable()
-    {
-        return class_exists('Doctrine\DBAL\Connection');
-    }
-
-    /**
-     * Get a Doctrine Schema Column instance.
-     *
-     * @param string $table
-     * @param string $column
-     *
-     * @return \Doctrine\DBAL\Schema\Column
-     */
-    public function getDoctrineColumn($table, $column)
-    {
-        $schema = $this->getDoctrineSchemaManager();
-
-        return $schema->listTableDetails($table)->getColumn($column);
-    }
-
-    /**
-     * Get the Doctrine DBAL schema manager for the connection.
-     *
-     * @return \Doctrine\DBAL\Schema\AbstractSchemaManager
-     */
-    public function getDoctrineSchemaManager()
-    {
-        return $this->getDoctrineDriver()->getSchemaManager($this->getDoctrineConnection());
-    }
-
-    /**
-     * Get the Doctrine DBAL database connection instance.
-     *
-     * @return \Doctrine\DBAL\Connection
-     */
-    public function getDoctrineConnection()
-    {
-        if (is_null($this->doctrineConnection)) {
-            $driver = $this->getDoctrineDriver();
-
-            $data = ['pdo' => $this->getPdo(), 'dbname' => $this->getConfig('database')];
-
-            $this->doctrineConnection = new DoctrineConnection($data, $driver);
-        }
-
-        return $this->doctrineConnection;
-    }
-
-    /**
      * Get the current PDO connection.
      *
      * @return \PDO
