@@ -20,3 +20,5 @@ cache:
 install: composer install --no-interaction
 
 script: ./vendor/bin/phpunit
+
+after_success: ./vendor/bin/coveralls

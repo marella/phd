@@ -6,6 +6,7 @@
 .gitignore export-ignore
 .nitpick.json export-ignore
 .php_cs export-ignore
+.coveralls.yml export-ignore
 .styleci.yml export-ignore
 .travis.yml export-ignore
 phpunit.xml export-ignore

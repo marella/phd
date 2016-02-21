@@ -1,6 +1,7 @@
 # PhD
 
 [![Build Status](https://travis-ci.org/marella/phd.svg?branch=master)](https://travis-ci.org/marella/phd)
+[![Coverage Status](https://coveralls.io/repos/github/marella/phd/badge.svg?branch=master)](https://coveralls.io/github/marella/phd?branch=master)
 [![StyleCI](https://styleci.io/repos/51870528/shield?style=flat)](https://styleci.io/repos/51870528)
 [![Latest Stable Version](https://poser.pugx.org/marella/phd/v/stable)](https://packagist.org/packages/marella/phd) [![Total Downloads](https://poser.pugx.org/marella/phd/downloads)](https://packagist.org/packages/marella/phd) [![Latest Unstable Version](https://poser.pugx.org/marella/phd/v/unstable)](https://packagist.org/packages/marella/phd) [![License](https://poser.pugx.org/marella/phd/license)](https://packagist.org/packages/marella/phd)
 
