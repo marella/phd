@@ -15,7 +15,8 @@ class MySqlTest extends PHPUnit_Extensions_Database_TestCase
         $config = $this->getConfig();
         $config = $config['connections'][$config['default']];
         $database = $config['database'];
-        $pdo = new PDO("mysql:host={$config['host']};dbname={$database}", $config['username'], $config['password']);
+        $host = isset($config['write']['host']) ? $config['write']['host'] : $config['host'];
+        $pdo = new PDO("mysql:host={$host};dbname={$database}", $config['username'], $config['password']);
 
         return $this->createDefaultDBConnection($pdo, $database);
     }
