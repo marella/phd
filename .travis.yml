@@ -6,6 +6,8 @@ php:
   - 7.0
   - hhvm
 
+services: mysql
+
 matrix:
   allow_failures:
     - php: 7.0
@@ -18,6 +20,10 @@ cache:
     - $HOME/.composer/cache
 
 install: composer install --no-interaction
+
+before_script:
+  - mysql -e 'create database test_db; use test_db; source tests/setup.sql;'
+  - cp tests/config.travis.php tests/config.php
 
 script: ./vendor/bin/phpunit
 
