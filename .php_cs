@@ -5,9 +5,11 @@ use Symfony\CS\FixerInterface;
 use Symfony\CS\Finder\DefaultFinder;
 
 $fixers = [
-    '-pre_increment',
-    'short_array_syntax',
+    '-psr0',
+    'no_useless_return',
+    'ordered_use',
     'phpdoc_order',
+    'short_array_syntax',
 ];
 
 return Config::create()

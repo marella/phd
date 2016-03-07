@@ -5,8 +5,7 @@ risky: false
 linting: true
 
 enabled:
-  - short_array_syntax
+  - no_useless_return
+  - ordered_use
   - phpdoc_order
-
-disabled:
-  - pre_increment
+  - short_array_syntax
