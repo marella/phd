@@ -2,16 +2,16 @@
 
 namespace PhD\Connections;
 
-use PDO;
 use Closure;
-use Exception;
-use Throwable;
-use LogicException;
-use RuntimeException;
 use DateTimeInterface;
+use Exception;
+use LogicException;
+use PDO;
 use PhD\DetectsLostConnections;
 use PhD\QueryException;
 use PhD\Support\Arr;
+use RuntimeException;
+use Throwable;
 
 class Connection implements ConnectionInterface
 {

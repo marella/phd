@@ -2,10 +2,10 @@
 
 namespace PhD\Connectors;
 
-use PDO;
 use Exception;
-use PhD\Support\Arr;
+use PDO;
 use PhD\DetectsLostConnections;
+use PhD\Support\Arr;
 
 class Connector
 {

@@ -2,11 +2,11 @@
 
 namespace PhD;
 
+use InvalidArgumentException;
 use PDO;
+use PhD\Connections\Connection;
 use PhD\Support\Arr;
 use PhD\Support\Str;
-use InvalidArgumentException;
-use PhD\Connections\Connection;
 
 class DatabaseManager implements ConnectionResolverInterface
 {

@@ -1,8 +1,8 @@
 <?php
 
 use Mockery as m;
-use PhD\DB;
 use PhD\DatabaseManager;
+use PhD\DB;
 
 class DBTest extends PHPUnit_Framework_TestCase
 {

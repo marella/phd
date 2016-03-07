@@ -1,7 +1,7 @@
 <?php
 
-use PhD\ConnectionFactory;
 use Mockery as m;
+use PhD\ConnectionFactory;
 
 class ConnectionFactoryTest extends PHPUnit_Framework_TestCase
 {

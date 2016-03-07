@@ -1,7 +1,7 @@
 <?php
 
-use PhD\Connectors\Connector;
 use Mockery as m;
+use PhD\Connectors\Connector;
 
 class ConnectorTest extends PHPUnit_Framework_TestCase
 {

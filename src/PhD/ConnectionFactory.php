@@ -2,11 +2,11 @@
 
 namespace PhD;
 
-use PDO;
-use PhD\Support\Arr;
 use InvalidArgumentException;
-use PhD\Connectors\MySqlConnector;
+use PDO;
 use PhD\Connections\MySqlConnection;
+use PhD\Connectors\MySqlConnector;
+use PhD\Support\Arr;
 
 class ConnectionFactory
 {
