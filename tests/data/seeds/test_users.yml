@@ -1,17 +1,21 @@
 test_users:
-    -   id: 1
-        name: 'User 1'
-        age: 31
-        active: 0
-    -   id: 2
-        name: 'User 2'
-        age: 32
-        active: 0
-    -   id: 3
-        name: 'User 3'
-        age: 33
-        active: 0
-    -   id: 4
-        name: 'User 4'
-        age: 34
-        active: 0
+  -
+    id: 1
+    name: 'User 1'
+    age: 31
+    active: 0
+  -
+    id: 2
+    name: 'User 2'
+    age: 32
+    active: 0
+  -
+    id: 3
+    name: 'User 3'
+    age: 33
+    active: 0
+  -
+    id: 4
+    name: 'User 4'
+    age: 34
+    active: 0
